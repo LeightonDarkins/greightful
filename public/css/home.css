@@ -1,0 +1,27 @@
+/* Space out content a bit */
+body {
+  font-family: "Open Sans";
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+/* Customize container */
+@media (min-width: 768px) {
+  .container {
+    max-width: 730px;
+  }
+}
+
+.sub-heading {
+  font-size: 11px;
+}
+
+.entry {
+  background-color: #ffffbb;
+  margin-top: 20%;
+}
+
+.navigation {
+  margin-top: 2.5%;
+}
