@@ -1,11 +1,18 @@
+require('./config/config');
+
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const _ = require('lodash');
 
-const port = process.env.PORT || 3000;
+var { mongoose } = require('./db/mongoose');
+var { Greightful } = require('./models/greightful');
+var dateHelper = require('./helpers/dateHelper');
+var errorHelper = require('./helpers/errorHelper');
 
 var app = express();
+const port = process.env.PORT;
+
 app.use(bodyParser.json());
 
 app.use('/public', express.static(path.join(__dirname, 'public')))
@@ -19,40 +26,31 @@ app.get('/input', (req, res) => {
 });
 
 app.get('/greightful', (req, res) => {
+  Greightful.count().exec((err, count) => {
+    errorHelper.handleError(err, res);
 
-  let greightfuls = [
-    {greightfulContent: 'Madeline', date: '01/01/2017', likes: '10', dislikes: '25'},
-    {greightfulContent: 'Pineapple on pizza', date: '01/01/2017', likes: '100', dislikes: '5'},
-    {greightfulContent: 'Jogging', date: '01/01/2017', likes: '0', dislikes: '55'},
-    {greightfulContent: 'Breathing', date: '01/01/2017', likes: '5', dislikes: '33'},
-    {greightfulContent: 'Airline safety videos', date: '01/01/2017', likes: '1132', dislikes: '86'},
-    {greightfulContent: 'Comfy shoes', date: '01/01/2017', likes: '10', dislikes: '90'},
-    {greightfulContent: 'The use of my legs', date: '01/01/2017', likes: '4', dislikes: '77'}
-  ]
+    var random = Math.floor(Math.random() * count);
 
-  let item = _.sample(greightfuls);
+    Greightful.findOne().skip(random).exec((err, doc) => {
+      errorHelper.handleError(err, res);
 
-  setTimeout(() => {
-    res.send(item);
-  }, 4000);
+      res.send(doc);
+    });
+  });
 });
 
 app.post('/greightful', (req, res) => {
   let greightfulContent = req.body.greightfulContent;
 
-  if (!greightfulContent) {
-    res.status(400).send({});
-  }
+  var date = dateHelper.getDate();
 
-  let day = new Date().getDate();
-  let month = new Date().getMonth();
-  let year = new Date().getFullYear();
+  var greightful = new Greightful({ greightfulContent, date });
 
-  let date = `${day}/${month}/${year}`;
-
-  setTimeout(() => {
-    res.send({ greightfulContent, date });
-  }, 2000);
+  greightful.save().then((doc) => {
+    res.send(doc);
+  }, (e) => {
+    res.status(400).send(e);
+  });
 });
 
 app.listen(port, () => {
