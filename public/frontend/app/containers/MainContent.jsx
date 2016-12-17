@@ -33,15 +33,17 @@ class MainContent extends React.Component {
   }
 
   handleClick(event) {
-    if (event.target.id !== 'greightful-row') {
-      this.handleLikeOrDislike();
+    let eventSource = event.target.id
+
+    if (eventSource !== 'greightful-row') {
+      this.handleLikeOrDislike(eventSource);
       this.updateGreightful();
     } else {
       this.getGreightful();
     }
   }
 
-  handleLikeOrDislike() {
+  handleLikeOrDislike(eventSource) {
     let updatedGreightfulRow = this.state.greightfulRow;
 
     if (eventSource === 'like') {
