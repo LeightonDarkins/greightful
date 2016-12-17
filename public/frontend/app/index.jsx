@@ -1,8 +1,8 @@
-import React from 'react';
-import { render } from 'react-dom';
+import React from 'react'
+import { render } from 'react-dom'
 
-import GreightfulHeader from './components/GreightfulHeader.jsx';
-import MainContent from './containers/MainContent.jsx';
+import GreightfulHeader from './components/GreightfulHeader.jsx'
+import MainContent from './containers/MainContent.jsx'
 
 class App extends React.Component {
   render() {
@@ -15,4 +15,4 @@ class App extends React.Component {
   }
 }
 
-render(<App />, document.getElementById('app'));
+render(<App />, document.getElementById('app'))

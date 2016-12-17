@@ -1,8 +1,8 @@
-import React from 'react';
-import axios from 'axios';
-import _ from 'lodash';
+import React from 'react'
+import axios from 'axios'
+import _ from 'lodash'
 
-import GreightfulRow from '../components/GreightfulRow.jsx';
+import GreightfulRow from '../components/GreightfulRow.jsx'
 
 class MainContent extends React.Component {
   constructor(props) {
@@ -13,66 +13,66 @@ class MainContent extends React.Component {
       loading: false
     }
 
-    this.handleClick = this.handleClick.bind(this);
+    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
-    this.getGreightful();
+    this.getGreightful()
   }
 
   getGreightful() {
-    this.showLoadingSpinner();
+    this.showLoadingSpinner()
 
     axios.get('/greightful').then((response) => {
-      this.setState({ greightfulRow: response.data });
+      this.setState({ greightfulRow: response.data })
 
-      this.hideLoadingSpinner();
+      this.hideLoadingSpinner()
     }).catch((error) => {
-      console.error(error);
-    });
+      console.error(error)
+    })
   }
 
   handleClick(event) {
     let eventSource = event.target.id
 
     if (eventSource !== 'greightful-row') {
-      this.handleLikeOrDislike(eventSource);
-      this.updateGreightful();
+      this.handleLikeOrDislike(eventSource)
+      this.updateGreightful()
     } else {
-      this.getGreightful();
+      this.getGreightful()
     }
   }
 
   handleLikeOrDislike(eventSource) {
-    let updatedGreightfulRow = this.state.greightfulRow;
+    let updatedGreightfulRow = this.state.greightfulRow
 
     if (eventSource === 'like') {
-      updatedGreightfulRow.likes += 1;
+      updatedGreightfulRow.likes += 1
     } else if (eventSource === 'dislike') {
-      updatedGreightfulRow.dislikes += 1;
+      updatedGreightfulRow.dislikes += 1
     }
 
     this.setState({
       greightfulRow: updatedGreightfulRow
-    });
+    })
   }
 
   updateGreightful() {
-    this.showLoadingSpinner();
+    this.showLoadingSpinner()
 
     axios.put('/greightful', this.state.greightfulRow ).then((response) => {
-      this.hideLoadingSpinner();
+      this.hideLoadingSpinner()
     }).catch((error) => {
-      console.error(error);
-    });
+      console.error(error)
+    })
   }
 
   showLoadingSpinner() {
-    this.setState({ loading: true });
+    this.setState({ loading: true })
   }
 
   hideLoadingSpinner() {
-    this.setState({ loading: false });
+    this.setState({ loading: false })
   }
 
   loadingSpinnerElement() {
@@ -80,7 +80,7 @@ class MainContent extends React.Component {
       <div className='row col-md-6 col-md-offset-3'>
         <i className='fa fa-spinner fa-2x fa-spin loading-spinner'></i>
       </div>
-    );
+    )
   }
 
   greightfulRowElement() {
@@ -97,30 +97,30 @@ class MainContent extends React.Component {
           Click the yellow box to see something else I've been grateful for in 2017
         </div>
       </div>
-    );
+    )
   }
 
   render() {
-    let contentToShow = null;
+    let contentToShow = null
 
     if (this.state.loading) {
-      contentToShow = this.loadingSpinnerElement();
+      contentToShow = this.loadingSpinnerElement()
     } else if (_.isEmpty(this.state.greightfulRow)) {
       contentToShow = (
         <div className='row message col-md-6 col-md-offset-3'>
           I'm not grateful for anything yet...
         </div>
-      );
+      )
     } else {
-      contentToShow = this.greightfulRowElement();
+      contentToShow = this.greightfulRowElement()
     }
 
     return (
       <div className='row main-content'>
         { contentToShow }
       </div>
-    );
+    )
   }
 }
 
-export default MainContent;
+export default MainContent

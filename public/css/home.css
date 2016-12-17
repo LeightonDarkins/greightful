@@ -20,6 +20,10 @@ body {
   margin-top: 5%;
 }
 
+.entry:hover {
+  cursor: pointer;
+}
+
 .navigation {
   margin-top: 2.5%;
   font-size: 11px;

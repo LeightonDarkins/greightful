@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 var Greightful = mongoose.model('Greightful', {
   greightfulContent: {
@@ -21,6 +21,6 @@ var Greightful = mongoose.model('Greightful', {
     type: Number,
     default: 0
   }
-});
+})
 
-module.exports = { Greightful };
+module.exports = { Greightful }

@@ -1,29 +1,29 @@
-import React from 'react';
-import { render } from 'react-dom';
-import axios from 'axios';
+import React from 'react'
+import { render } from 'react-dom'
+import axios from 'axios'
 
 class Input extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
-    this.state = { value: '' };
+    this.state = { value: '' }
 
-    this.handleClick = this.handleClick.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
   handleChange(event) {
-    this.setState({ value: event.target.value });
+    this.setState({ value: event.target.value })
   }
 
   handleClick() {
     axios.post('/greightful', {
       greightfulContent: this.state.value
     }).then((response) => {
-      console.info(response);
+      console.info(response)
     }).catch((error) => {
-      console.error(error);
-    });
+      console.error(error)
+    })
   }
 
   render() {
@@ -35,8 +35,8 @@ class Input extends React.Component {
           <button type='submit' onClick={this.handleClick}>Be Greightful</button>
         </div>
       </div>
-    );
+    )
   }
 }
 
-render(<Input/>, document.getElementById('input'));
+render(<Input/>, document.getElementById('input'))
