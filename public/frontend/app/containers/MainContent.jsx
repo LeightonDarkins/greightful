@@ -58,15 +58,11 @@ class MainContent extends React.Component {
   }
 
   updateGreightful() {
-    this.showLoadingSpinner()
-
     let url = `/greightful/${this.state.greightfulRow._id}`
 
     axios.put(url, this.state.greightfulRow ).then((response) => {
-      this.hideLoadingSpinner()
     }).catch((error) => {
       console.error(error)
-      this.hideLoadingSpinner()
     })
   }
 
