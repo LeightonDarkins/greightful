@@ -4,6 +4,7 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const _ = require('lodash');
+const { ObjectID } = require('mongodb');
 
 var { mongoose } = require('./db/mongoose');
 var { Greightful } = require('./models/greightful');
@@ -47,10 +48,29 @@ app.post('/greightful', (req, res) => {
   var greightful = new Greightful({ greightfulContent, date });
 
   greightful.save().then((doc) => {
-    res.send(doc);
+    res.status(201).send(doc);
   }, (e) => {
     res.status(400).send(e);
   });
+});
+
+app.put('/greightful', (req, res) => {
+  if (!req.body) {
+    res.status(400).send();
+  }
+
+  var updateFields = _.pick(req.body, ['_id', 'greightfulContent', 'date', 'likes', 'dislikes']);
+
+  if(!ObjectID.isValid(updateFields._id)) {
+    res.status(404).send();
+  }
+
+  Greightful.findByIdAndUpdate(updateFields._id, { $set: updateFields }).then((doc) => {
+    res.send(doc);
+  }).catch((err) => {
+    res.status(400).send(err);
+  });
+
 });
 
 app.listen(port, () => {

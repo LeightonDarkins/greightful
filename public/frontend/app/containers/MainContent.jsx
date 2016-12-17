@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import _ from 'lodash';
 
 import GreightfulRow from '../components/GreightfulRow.jsx';
 
@@ -22,8 +23,30 @@ class MainContent extends React.Component {
       this.setState({ greightfulRow: response.data });
 
       this.setState({ loading: false });
+
+      console.log(this.state);
     }).catch((error) => {
       // TODO: display an error to the user
+    });
+  }
+
+  showLoadingSpinner() {
+    this.setState({ loading: true });
+  }
+
+  hideLoadingSpinner() {
+    this.setState({ loading: false });
+  }
+
+  updateGreightful(greightfulRow) {
+    this.showLoadingSpinner();
+
+    axios.put('/greightful', greightfulRow ).then((response) => {
+      console.log(response.data);
+
+      this.hideLoadingSpinner();
+    }).catch((error) => {
+      // TODO: display error!
     });
   }
 
@@ -39,6 +62,8 @@ class MainContent extends React.Component {
         greightfulRow: updatedGreightfulRow
       });
 
+      this.updateGreightful(this.state.greightfulRow);
+
     } else if (eventSource == 'dislike') {
       let updatedGreightfulRow = this.state.greightfulRow;
 
@@ -47,14 +72,16 @@ class MainContent extends React.Component {
       this.setState({
         greightfulRow: updatedGreightfulRow
       });
+
+      this.updateGreightful(this.state.greightfulRow);
     }
 
-    this.setState({ loading: true });
+    this.showLoadingSpinner();
 
     axios.get('/greightful').then((response) => {
       this.setState({ greightfulRow: response.data });
 
-      this.setState({ loading: false });
+      this.hideLoadingSpinner();
     }).catch((error) => {
       // TODO: display an error to the user
     });
@@ -86,11 +113,19 @@ class MainContent extends React.Component {
       );
     }
 
-    return (
-      <div className='row main-content'>
-        { contentToShow }
-      </div>
-    );
+    if (_.isEmpty(this.state.greightfulRow)) {
+      return (
+        <div className='row main-content'>
+          I'm not grateful for anything yet...
+        </div>
+      );
+    } else {
+      return (
+        <div className='row main-content'>
+          { contentToShow }
+        </div>
+      );
+    }
   }
 }
 

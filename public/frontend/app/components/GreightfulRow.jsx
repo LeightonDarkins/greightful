@@ -13,8 +13,12 @@ class GreightfulRow extends React.Component {
         </p>
 
         <div className='row buttons'>
-          <i id='like' className='col-md-6 fa fa-2x fa-heart like' onClick={ this.clickHandler }> { this.props.likes }</i>
-          <i id='dislike' className='col-md-6 fa fa-2x fa-thumbs-down dislike' onClick={ this.clickHandler }> { this.props.dislikes }</i>
+          <i id='like' className='col-md-6 fa fa-heart like' onClick={ this.clickHandler }>
+            <span className='interaction-value'> { this.props.likes }</span>
+          </i>
+          <i id='dislike' className='col-md-6 fa fa-thumbs-down dislike' onClick={ this.clickHandler }>
+            <span className='interaction-value'> { this.props.dislikes }</span>
+          </i>
         </div>
       </div>
     );

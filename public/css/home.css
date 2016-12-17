@@ -47,3 +47,7 @@ body {
   color: #aaa;
   cursor: pointer;
 }
+
+.interaction-value {
+  font-family: "Open Sans";
+}
