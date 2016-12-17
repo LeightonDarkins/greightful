@@ -29,6 +29,7 @@ class MainContent extends React.Component {
       this.hideLoadingSpinner()
     }).catch((error) => {
       console.error(error)
+      this.hideLoadingSpinner()
     })
   }
 
@@ -64,6 +65,7 @@ class MainContent extends React.Component {
       this.hideLoadingSpinner()
     }).catch((error) => {
       console.error(error)
+      this.hideLoadingSpinner()
     })
   }
 

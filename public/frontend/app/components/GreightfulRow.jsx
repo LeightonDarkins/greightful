@@ -1,9 +1,11 @@
 import React from 'react'
 
+import GreightfulButton from './GreightfulButton.jsx'
+
 class GreightfulRow extends React.Component {
   render() {
     return (
-      <div id='greightful-row' className='row entry col-md-6 col-md-offset-3' onClick={ this.props.clickHandler }>
+      <div id='greightful-row' className='row entry col-md-6 col-md-offset-3 greightful-row' onClick={ this.props.clickHandler }>
         <h2>
           { this.props.greightfulContent }
         </h2>
@@ -13,16 +15,16 @@ class GreightfulRow extends React.Component {
         </p>
 
         <div className='row buttons'>
-          <span className='col-md-6'>
-            <i id='like' className='fa fa-heart like' onClick={ this.clickHandler }>
-              <span className='interaction-value'> { this.props.likes }</span>
-            </i>
-          </span>
-          <span className='col-md-6'>
-            <i id='dislike' className='fa fa-thumbs-down dislike' onClick={ this.clickHandler }>
-              <span className='interaction-value'> { this.props.dislikes }</span>
-            </i>
-          </span>
+          <GreightfulButton
+            type='like'
+            count={ this.props.likes }
+            onClick={ this.props.clickHandler }
+          />
+          <GreightfulButton
+            type='dislike'
+            count={ this.props.dislikes }
+            onClick={ this.props.clickHandler }
+          />
         </div>
       </div>
     )

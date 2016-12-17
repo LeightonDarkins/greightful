@@ -65,7 +65,7 @@ app.put('/greightful', (req, res) => {
     res.status(404).send()
   }
 
-  Greightful.findByIdAndUpdate(updateFields._id, { $set: updateFields }).then((doc) => {
+  Greightful.findByIdAndUpdate(updateFields._id, { $set: updateFields }, {new: true}).then((doc) => {
     res.send(doc)
   }).catch((err) => {
     res.status(400).send(err)
@@ -76,3 +76,5 @@ app.put('/greightful', (req, res) => {
 app.listen(port, () => {
   console.log('The magic is happening on port ' + port)
 })
+
+module.exports = { app }
