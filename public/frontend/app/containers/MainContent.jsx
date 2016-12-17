@@ -107,7 +107,7 @@ class MainContent extends React.Component {
       contentToShow = this.loadingSpinnerElement();
     } else if (_.isEmpty(this.state.greightfulRow)) {
       contentToShow = (
-        <div className='row message'>
+        <div className='row message col-md-6 col-md-offset-3'>
           I'm not grateful for anything yet...
         </div>
       );

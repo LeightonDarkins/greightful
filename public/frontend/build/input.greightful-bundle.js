@@ -74,7 +74,7 @@
 
 	    var _this = _possibleConstructorReturn(this, (Input.__proto__ || Object.getPrototypeOf(Input)).call(this, props));
 
-	    _this.state = { value: 'test' };
+	    _this.state = { value: '' };
 
 	    _this.handleClick = _this.handleClick.bind(_this);
 	    _this.handleChange = _this.handleChange.bind(_this);

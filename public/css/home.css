@@ -55,3 +55,8 @@ body {
 .buttons {
   margin-bottom: 5px;
 }
+
+.message {
+  background-color: #ddffff;
+  padding: 2.5px;
+}
