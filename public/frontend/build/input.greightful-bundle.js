@@ -92,9 +92,9 @@
 	      _axios2.default.post('/greightful', {
 	        greightfulContent: this.state.value
 	      }).then(function (response) {
-	        // TODO: display the response to the user
+	        console.info(response);
 	      }).catch(function (error) {
-	        // TODO: display an error to the user
+	        console.error(error);
 	      });
 	    }
 	  }, {

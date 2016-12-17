@@ -20,9 +20,9 @@ class Input extends React.Component {
     axios.post('/greightful', {
       greightfulContent: this.state.value
     }).then((response) => {
-      // TODO: display the response to the user
+      console.info(response);
     }).catch((error) => {
-      // TODO: display an error to the user
+      console.error(error);
     });
   }
 
