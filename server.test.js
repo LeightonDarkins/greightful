@@ -62,24 +62,32 @@ describe('POST /greightful', () => {
   })
 })
 
-describe('PUT /greightful', () => {
+describe('PUT /greightful/:id', () => {
   it('should update a greightful', (done) => {
+    let hexId = greightfuls[0]._id.toHexString();
+
     request(app)
-      .put('/greightful')
+      .put(`/greightful/${hexId}`)
       .send({
-        _id: greightfuls[0]._id,
-        greightfulContent: 'a change',
-        date: '11/22/33',
         likes: '10',
         dislikes: '400'
       })
       .expect(200)
       .expect((res) => {
-        expect(res.body.greightfulContent).toEqual('a change')
-        expect(res.body.date).toEqual('11/22/33')
         expect(res.body.likes).toEqual('10')
         expect(res.body.dislikes).toEqual('400')
       })
       .end(done)
   })
+
+  it('should return a 404 for an invalid ID', (done) => {
+    request(app)
+      .put(`/greightful/test`)
+      .send({
+        likes: '10',
+        dislikes: '400'
+      })
+      .expect(404)
+      .end(done)
+  });
 })

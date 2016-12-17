@@ -3,6 +3,7 @@ import axios from 'axios'
 import _ from 'lodash'
 
 import GreightfulRow from '../components/GreightfulRow.jsx'
+import GreightfulButton from '../components/GreightfulButton.jsx'
 
 class MainContent extends React.Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class MainContent extends React.Component {
     }
 
     this.handleClick = this.handleClick.bind(this)
+    this.handleLikeOrDislike = this.handleLikeOrDislike.bind(this)
   }
 
   componentDidMount() {
@@ -33,18 +35,13 @@ class MainContent extends React.Component {
     })
   }
 
-  handleClick(event) {
-    let eventSource = event.target.id
-
-    if (eventSource !== 'greightful-row') {
-      this.handleLikeOrDislike(eventSource)
-      this.updateGreightful()
-    } else {
-      this.getGreightful()
-    }
+  handleClick() {
+    this.getGreightful()
   }
 
-  handleLikeOrDislike(eventSource) {
+  handleLikeOrDislike(event) {
+    let eventSource = event.target.id
+
     let updatedGreightfulRow = this.state.greightfulRow
 
     if (eventSource === 'like') {
@@ -56,12 +53,16 @@ class MainContent extends React.Component {
     this.setState({
       greightfulRow: updatedGreightfulRow
     })
+
+    this.updateGreightful()
   }
 
   updateGreightful() {
     this.showLoadingSpinner()
 
-    axios.put('/greightful', this.state.greightfulRow ).then((response) => {
+    let url = `/greightful/${this.state.greightfulRow._id}`
+
+    axios.put(url, this.state.greightfulRow ).then((response) => {
       this.hideLoadingSpinner()
     }).catch((error) => {
       console.error(error)
@@ -95,6 +96,18 @@ class MainContent extends React.Component {
           likes={ this.state.greightfulRow.likes }
           dislikes={ this.state.greightfulRow.dislikes }
         />
+      <div className="buttons row col-md-4 col-md-offset-4">
+          <GreightfulButton
+            type='like'
+            count={ this.state.greightfulRow.likes }
+            clickHandler={ this.handleLikeOrDislike }
+          />
+          <GreightfulButton
+            type='dislike'
+            count={ this.state.greightfulRow.dislikes }
+            clickHandler={ this.handleLikeOrDislike }
+          />
+        </div>
         <div className='row navigation col-md-6 col-md-offset-3'>
           Click the yellow box to see something else I've been grateful for in 2017
         </div>
@@ -118,7 +131,7 @@ class MainContent extends React.Component {
     }
 
     return (
-      <div className='row main-content'>
+      <div className='main-content'>
         { contentToShow }
       </div>
     )

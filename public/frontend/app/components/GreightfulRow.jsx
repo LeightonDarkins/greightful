@@ -13,19 +13,6 @@ class GreightfulRow extends React.Component {
         <p>
           { this.props.date }
         </p>
-
-        <div className='row buttons'>
-          <GreightfulButton
-            type='like'
-            count={ this.props.likes }
-            onClick={ this.props.clickHandler }
-          />
-          <GreightfulButton
-            type='dislike'
-            count={ this.props.dislikes }
-            onClick={ this.props.clickHandler }
-          />
-        </div>
       </div>
     )
   }

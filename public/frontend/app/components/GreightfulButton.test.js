@@ -1,5 +1,5 @@
 import React from 'react'
-import { shallow, mount, render } from 'enzyme'
+import { shallow, mount } from 'enzyme'
 
 import GreightfulButton from './GreightfulButton'
 
@@ -8,7 +8,7 @@ describe('GreightfulButton', () => {
     let wrapper = shallow(<GreightfulButton type='like' count='10'/>)
 
     expect(wrapper.type()).toEqual('span')
-    expect(wrapper.hasClass('col-md-6')).toBe(true)
+    expect(wrapper.hasClass('col-md-3')).toBe(true)
   })
 
   it('renders correctly for like', () => {

@@ -5,12 +5,6 @@ body {
   padding-bottom: 20px;
 }
 
-@media (min-width: 768px) {
-  .container {
-    max-width: 730px;
-  }
-}
-
 .sub-heading {
   font-size: 11px;
 }
@@ -57,6 +51,7 @@ body {
 }
 
 .buttons {
+  margin-top: 5px;
   margin-bottom: 5px;
 }
 

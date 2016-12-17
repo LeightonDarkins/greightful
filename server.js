@@ -54,18 +54,15 @@ app.post('/greightful', (req, res) => {
   })
 })
 
-app.put('/greightful', (req, res) => {
-  if (!req.body) {
-    res.status(400).send()
+app.put('/greightful/:id', (req, res) => {
+  let id = req.params.id
+  var updateFields = _.pick(req.body, ['likes', 'dislikes'])
+
+  if(!ObjectID.isValid(id)) {
+    return res.status(404).send()
   }
 
-  var updateFields = _.pick(req.body, ['_id', 'greightfulContent', 'date', 'likes', 'dislikes'])
-
-  if(!ObjectID.isValid(updateFields._id)) {
-    res.status(404).send()
-  }
-
-  Greightful.findByIdAndUpdate(updateFields._id, { $set: updateFields }, {new: true}).then((doc) => {
+  Greightful.findByIdAndUpdate(id, { $set: updateFields }, {new: true}).then((doc) => {
     res.send(doc)
   }).catch((err) => {
     res.status(400).send(err)
