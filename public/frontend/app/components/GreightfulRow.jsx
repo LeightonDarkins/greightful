@@ -3,7 +3,7 @@ import React from 'react';
 class GreightfulRow extends React.Component {
   render(){
     return (
-      <div className='row entry col-md-6 col-md-offset-3' onClick={ this.props.clickHandler }>
+      <div id='greightful-row' className='row entry col-md-6 col-md-offset-3' onClick={ this.props.clickHandler }>
         <h2>
           { this.props.greightfulContent }
         </h2>

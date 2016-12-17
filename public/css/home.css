@@ -51,3 +51,7 @@ body {
 .interaction-value {
   font-family: "Open Sans";
 }
+
+.buttons {
+  margin-bottom: 5px;
+}
