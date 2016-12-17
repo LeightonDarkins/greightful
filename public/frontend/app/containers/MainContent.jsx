@@ -105,23 +105,21 @@ class MainContent extends React.Component {
 
     if (this.state.loading) {
       contentToShow = this.loadingSpinnerElement();
+    } else if (_.isEmpty(this.state.greightfulRow)) {
+      contentToShow = (
+        <div className='row message'>
+          I'm not grateful for anything yet...
+        </div>
+      );
     } else {
-      if (_.isEmpty(this.state.greightfulRow)) {
-        return (
-          <div className='row main-content'>
-            I'm not grateful for anything yet...
-          </div>
-        );
-      } else {
-        return (
-          <div className='row main-content'>
-            { contentToShow }
-          </div>
-        );
-      }
-
       contentToShow = this.greightfulRowElement();
     }
+
+    return (
+      <div className='row main-content'>
+        { contentToShow }
+      </div>
+    );
   }
 }
 

@@ -6,7 +6,7 @@ class Input extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { value: 'test' };
+    this.state = { value: '' };
 
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
